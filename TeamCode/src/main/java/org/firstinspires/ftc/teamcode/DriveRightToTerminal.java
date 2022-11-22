@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Robot: Auto Drive By Time", group="Robot")
 
-public class RobotAutoDriveByTime_Linear extends LinearOpMode {
+public class DriveRightToTerminal extends LinearOpMode {
 
     /* Declare OpMode members. */
 
