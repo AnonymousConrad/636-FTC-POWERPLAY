@@ -45,9 +45,6 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
 
     private ElapsedTime     runtime = new ElapsedTime();
 
-
-    static final double     FORWARD_SPEED = 0.5;
-
     @Override
     public void runOpMode() {
 
@@ -57,7 +54,10 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
         DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
+        DcMotor motorLinearSlides = hardwareMap.dcMotor.get("motorLinearSlides");
 
+        Servo claw = hardwareMap.servo.get("claw");
+        claw.setDirection(Servo.Direction.FORWARD);
 
         motorBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -80,29 +80,179 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         waitForStart();
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
+        //THIS AUTONOMOUS IS FOR PLACING PRE HELD CONE INTO TOP POLE AND THEN PARKING IN CORNER
+        //START THE ROBOT LOOKING STRAIGHT AT THE FRIKIN CODE WITH SCANNY STUFFS
 
-        // Step 1:  Drive forward for 1 second
-        motorFrontLeft.setPower(FORWARD_SPEED);
-        motorFrontRight.setPower(FORWARD_SPEED);
-        motorBackRight.setPower(FORWARD_SPEED);
-        motorBackLeft.setPower(FORWARD_SPEED);
-        runtime.reset();
+        //CLAW CLOSSSESS ON THE FRIKIN CONE THAT WAS PRE PLACE WOOO
+        claw.setPosition(0);
+        sleep(500);
 
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+        //Step 2:  it does mecanum thingy ba bingy and goes left sideways perfecto oh yeah its called strafing bruh i think
+
+        motorFrontLeft.setPower(-.5);
+        motorBackLeft.setPower(.5);
+        motorFrontRight.setPower(.5);
+        motorBackRight.setPower(-.5);
+        sleep(2000);
+
+        //just turning off bruh
+
+        motorFrontLeft.setPower(0);
+        motorBackLeft.setPower(0);
+        motorFrontRight.setPower(0);
+        motorBackRight.setPower(0);
+        sleep(100);
+
+        motorLinearSlides.setPower(1);
+        sleep(200);
+
+        //advanced to the poly pole and goes straight to it but not all the way cause it needs space to extend linear slide thingy ka bob
+        motorFrontLeft.setPower(.5);
+        motorBackLeft.setPower(.5);
+        motorFrontRight.setPower(.5);
+        motorBackRight.setPower(.5);
+        sleep(800);
+
+        //just turning off bruh
+
+        motorFrontLeft.setPower(0);
+        motorBackLeft.setPower(0);
+        motorFrontRight.setPower(0);
+        motorBackRight.setPower(0);
+        sleep(700);
+
+        //LINEAR SLIDE GOES UPPPPP
+        motorLinearSlides.setPower(1);
+        sleep(1900);
+
+        //just turning off bruh
+
+        motorLinearSlides.setPower(0);
+        sleep(100);
+
+        //robot moves SLIGHTLYYYY forward so the cone is aligned with poly pole
+        motorFrontLeft.setPower(.5);
+        motorBackLeft.setPower(.5);
+        motorFrontRight.setPower(.5);
+        motorBackRight.setPower(.5);
+        sleep(250);
+
+        //just turning off bruh
+
+        motorFrontLeft.setPower(0);
+        motorBackLeft.setPower(0);
+        motorFrontRight.setPower(0);
+        motorBackRight.setPower(0);
+        sleep(100);
+
+        //claw opens up and drops cone (claw already had cone in grasp i think thats allowed)
+        claw.setPosition(0.25);
+        sleep(500);
+
+        //LINEAR SLIDE GOES DOWNNNNNN
+        motorLinearSlides.setPower(-1);
+        sleep(1700);
+
+        //RESETTING AND GOING BACKWARDS
+        motorFrontLeft.setPower(-.5);
+        motorBackLeft.setPower(-.5);
+        motorFrontRight.setPower(-.5);
+        motorBackRight.setPower(-.5);
+        sleep(1000);
+
+        //SHIFTING TO THE RIGHT --- ALL THE WAY TO THE CORNER DUN DUN DUNNNNN
+        motorFrontLeft.setPower(1);
+        motorBackLeft.setPower(-1);
+        motorFrontRight.setPower(-1);
+        motorBackRight.setPower(1);
+        sleep(3000);
+
 
         // Step 4:  Stop
         motorFrontLeft.setPower(0);
         motorFrontRight.setPower(0);
         motorBackRight.setPower(0);
         motorBackLeft.setPower(0);
-
-
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
+        motorLinearSlides.setPower(0);
+        // After David's code
+        motorFrontLeft.setPower(0.5);
+        motorFrontRight.setPower(0.5);
+        motorBackRight.setPower(0.5);
+        motorBackLeft.setPower(0.5);
+        runtime.reset();
         sleep(1000);
+
+        //strafe
+        motorFrontLeft.setPower(0.5);
+        motorFrontRight.setPower(-0.5);
+        motorBackRight.setPower(0.5);
+        motorBackLeft.setPower(-0.5);
+        runtime.reset();
+        sleep(1000);
+        //turn
+        motorFrontLeft.setPower(-0.5);
+        motorFrontRight.setPower(0.5);
+        motorBackRight.setPower(0.5);
+        motorBackLeft.setPower(-0.5);
+        runtime.reset();
+        sleep(1000);
+        // strafe
+        motorFrontLeft.setPower(0.5);
+        motorFrontRight.setPower(-0.5);
+        motorBackRight.setPower(0.5);
+        motorBackLeft.setPower(-0.5);
+        runtime.reset();
+        sleep(1000);
+        //forward
+        motorFrontLeft.setPower(0.25);
+        motorFrontRight.setPower(0.25);
+        motorBackRight.setPower(0.25);
+        motorBackLeft.setPower(0.25);
+        runtime.reset();
+        sleep(1000);
+
+        motorLinearSlides.setPower(.5);
+        runtime.reset();
+        sleep(1000);
+        //closes claw
+        claw.setPosition(.3);
+
+        motorFrontLeft.setPower(-0.5);
+        motorFrontRight.setPower(-0.5);
+        motorBackRight.setPower(-0.5);
+        motorBackLeft.setPower(-0.5);
+        runtime.reset();
+        sleep(1000);
+
+        //turn
+        motorFrontLeft.setPower(0.5);
+        motorFrontRight.setPower(-0.5);
+        motorBackRight.setPower(-0.5);
+        motorBackLeft.setPower(0.5);
+        runtime.reset();
+        sleep(1000);
+        //strafe
+        motorFrontLeft.setPower(0.5);
+        motorFrontRight.setPower(-0.5);
+        motorBackRight.setPower(0.5);
+        motorBackLeft.setPower(-0.5);
+        runtime.reset();
+        sleep(1000);
+
+        motorLinearSlides.setPower(1);
+        runtime.reset();
+        sleep(1000);
+
+        //move forward
+        motorFrontLeft.setPower(0.15);
+        motorFrontRight.setPower(0.15);
+        motorBackRight.setPower(0.15);
+        motorBackLeft.setPower(0.15);
+        runtime.reset();
+        sleep(2000);
+
+        claw.setPosition(0);
+        }
+
     }
-}
+
