@@ -45,7 +45,7 @@ public class DriveRightToTerminal extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-
+// copying
     static final double FORWARD_SPEED = 0.5;
 
     @Override
