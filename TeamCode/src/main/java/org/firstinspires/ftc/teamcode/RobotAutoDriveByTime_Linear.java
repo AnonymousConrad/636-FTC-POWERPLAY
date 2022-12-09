@@ -76,9 +76,9 @@ public class RobotAutoDriveByTime_Linear extends LinearOpMode {
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses PLAY)  /
         waitForStart();
-
+// hello
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         //THIS AUTONOMOUS IS FOR PLACING PRE HELD CONE INTO TOP POLE AND THEN PARKING IN CORNER
         //START THE ROBOT LOOKING STRAIGHT AT THE FRIKIN CODE WITH SCANNY STUFFS
